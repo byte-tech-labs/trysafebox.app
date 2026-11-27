@@ -17,6 +17,7 @@ BASE = f"https://{DOMAIN}/"
 STORE = "https://apps.apple.com/app/id1577066512"
 POLICY = BASE + "privacy/"
 TERMS = BASE + "terms/"
+SUPPORT = BASE + "support/"
 MAIL = "bytetechlabs@gmail.com"
 LANGS = [EN, FR, ES, PT, DE, IT, NL, PL, RU, UK, TR, AR, HI, TH, VI, ID, JA, KO, ZH_HANS, ZH_HANT]
 
@@ -191,7 +192,7 @@ def page(L):
 <footer class="foot">
 <div class="wrap">
 <p class="langs"><span>{e(L["footer_lang"])}:</span> {switch}</p>
-<p><a href="{POLICY}">{e(L["footer_privacy"])}</a> · {e(L["footer_support"])}: <a href="mailto:{MAIL}">{MAIL}</a> · <a href="{STORE}">App Store</a></p>
+<p><a href="{POLICY}">{e(L["footer_privacy"])}</a> · <a href="{SUPPORT}">{e(L["footer_support"])}</a>: <a href="mailto:{MAIL}">{MAIL}</a> · <a href="{STORE}">App Store</a></p>
 <p class="small">{e(L["footer_made"])} © 2026 Byte Tech Labs. iPhone, iPad, iCloud, Face ID and App Store are trademarks of Apple Inc.</p>
 </div>
 </footer>
@@ -218,7 +219,7 @@ for L in LANGS:
 alts = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{x["hreflang"]}" href="{url(x)}"/>' for x in LANGS)
 alts += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}"/>'
 urls = "".join(f'\n  <url>\n    <loc>{url(L)}</loc>\n    <lastmod>2026-11-27</lastmod>{alts}\n  </url>' for L in LANGS)
-urls += "".join(f'\n  <url>\n    <loc>{u}</loc>\n    <lastmod>2026-11-27</lastmod>\n  </url>' for u in (POLICY, TERMS))
+urls += "".join(f'\n  <url>\n    <loc>{u}</loc>\n    <lastmod>2026-11-27</lastmod>\n  </url>' for u in (POLICY, TERMS, SUPPORT))
 with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
     f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">{urls}\n</urlset>\n')
 

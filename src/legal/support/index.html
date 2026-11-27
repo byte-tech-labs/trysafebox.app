@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SafeBox Support</title>
+<meta name="description" content="Help with SafeBox, the private vault for iPhone and iPad: forgotten passcode, moving to a new iPhone, backups, purchases and contact.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F5F6F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0E0D" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  /* Keylight, SafeBox's design language: quiet green-black neutrals and one luminous accent. */
+  :root {
+    --canvas: #F5F6F3;
+    --surface: #FFFFFF;
+    --sunken: #ECEEEA;
+    --separator: rgba(14, 20, 18, 0.10);
+    --text: #0E1412;
+    --text-2: #5A6560;
+    --text-3: #646E69;
+    --accent: #0B7A5E;
+    --accent-soft: rgba(11, 122, 94, 0.12);
+    --on-accent: #FFFFFF;
+    --warning: #9A5B00;
+    --warning-soft: rgba(154, 91, 0, 0.10);
+    --tile-top: #5BE8C4;
+    --tile-bottom: #0E8F75;
+    --keyhole: #FFFFFF;
+    --glow: transparent;
+    --shadow: 0 1px 2px rgba(14, 20, 18, 0.04), 0 8px 24px rgba(14, 20, 18, 0.06);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --canvas: #0A0E0D;
+      --surface: #121816;
+      --sunken: #070A09;
+      --separator: rgba(242, 245, 244, 0.12);
+      --text: #F2F5F4;
+      --text-2: #9AA5A0;
+      --text-3: #7D8782;
+      --accent: #3DDBB0;
+      --accent-soft: rgba(61, 219, 176, 0.15);
+      --on-accent: #0A0E0D;
+      --warning: #FFB547;
+      --warning-soft: rgba(255, 181, 71, 0.12);
+      --tile-top: #0F4A3D;
+      --tile-bottom: #06100E;
+      --keyhole: #3DDBB0;
+      --glow: rgba(61, 219, 176, 0.22);
+      --shadow: none;
+      color-scheme: dark;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--text);
+    font: 400 17px/1.6 "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Top bar */
+  header.bar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--canvas) 82%, transparent);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    border-bottom: 1px solid var(--separator);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  header.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; letter-spacing: -0.01em; font-size: 17px; }
+  .tile {
+    width: 30px; height: 30px; border-radius: 8px; flex: none;
+    background: linear-gradient(180deg, var(--tile-top), var(--tile-bottom));
+    display: grid; place-items: center;
+    box-shadow: 0 0 18px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .tile svg { width: 62%; height: 62%; }
+  .bar nav { display: flex; gap: 4px; }
+  .bar nav a {
+    font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .bar nav a:hover { background: var(--accent-soft); color: var(--text); }
+  .bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+
+  /* Hero */
+  .hero { padding-block: 64px 40px; }
+  .overline {
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font: 400 clamp(44px, 8vw, 72px)/1.02 "Instrument Serif", Georgia, serif;
+    letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 19px; line-height: 1.55; color: var(--text-2); max-width: 60ch; margin: 0 0 28px; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: 500 13px/1 "Geist Mono", ui-monospace, monospace;
+    padding: 8px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--separator); color: var(--text-2);
+  }
+  .chip b { color: var(--text); font-weight: 500; }
+
+  /* Plain-language summary */
+  .glance {
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 22px; box-shadow: var(--shadow);
+    padding: 28px; margin-bottom: 56px;
+  }
+  .glance h2 { font: 600 19px/1.3 "Geist", sans-serif; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .glance > p { margin: 0 0 22px; color: var(--text-2); font-size: 15px; }
+  .glance ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .glance li { display: flex; gap: 12px; align-items: flex-start; background: var(--canvas); border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.45; }
+  .glance li svg { flex: none; width: 22px; height: 22px; margin-top: 1px; color: var(--accent); }
+  .glance li strong { display: block; font-weight: 600; margin-bottom: 2px; }
+  .glance li span { color: var(--text-2); }
+
+  /* Layout: contents beside the text on wide screens */
+  .layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: 80px; }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: 250px minmax(0, 1fr); gap: 64px; }
+    .toc { position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; }
+    .toc summary { pointer-events: none; }
+    .toc summary::after { display: none; }
+  }
+
+  .toc { font-size: 14px; }
+  .toc details { background: var(--surface); border: 1px solid var(--separator); border-radius: 16px; padding: 6px; }
+  @media (min-width: 960px) { .toc details { background: none; border: 0; padding: 0; } }
+  .toc summary {
+    list-style: none; cursor: pointer; padding: 10px 12px;
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc summary::after { content: "+"; font: 400 18px/1 "Geist Mono", monospace; color: var(--text-2); }
+  .toc details[open] summary::after { content: "−"; }
+  .toc ol { list-style: none; margin: 0; padding: 0 0 6px; counter-reset: toc; }
+  .toc li { counter-increment: toc; }
+  .toc a {
+    display: flex; gap: 10px; padding: 7px 12px; border-radius: 10px; text-decoration: none; color: var(--text-2); line-height: 1.35;
+  }
+  .toc a::before { content: counter(toc, decimal-leading-zero); font: 400 12px/1.6 "Geist Mono", monospace; color: var(--text-3); }
+  .toc a:hover { background: var(--accent-soft); color: var(--text); }
+
+  /* Agreement text */
+  article { max-width: 68ch; counter-reset: sec; }
+  section { counter-increment: sec; padding-top: 8px; margin-bottom: 44px; }
+  section + section { border-top: 1px solid var(--separator); padding-top: 40px; }
+  h2.sec {
+    font: 600 24px/1.25 "Geist", sans-serif; letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  h2.sec::before { content: counter(sec, decimal-leading-zero); font: 500 13px/1 "Geist Mono", monospace; color: var(--accent); letter-spacing: 0; transform: translateY(-3px); }
+  h3 { font: 600 17px/1.35 "Geist", sans-serif; margin: 26px 0 8px; }
+  p { margin: 0 0 14px; text-wrap: pretty; }
+  article ul { margin: 0 0 14px; padding-left: 0; list-style: none; }
+  article ul li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  article ul li::before { content: ""; position: absolute; left: 4px; top: 0.72em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  dl { margin: 0 0 14px; display: grid; gap: 2px; background: var(--separator); border: 1px solid var(--separator); border-radius: 16px; overflow: hidden; }
+  dl div { background: var(--surface); padding: 14px 18px; }
+  dt { font-weight: 600; margin-bottom: 2px; }
+  dd { margin: 0; color: var(--text-2); font-size: 16px; }
+  .caps { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+  .note {
+    border-radius: 14px; padding: 14px 18px; margin: 18px 0; font-size: 16px;
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+  }
+  .note.warn { background: var(--warning-soft); border-left-color: var(--warning); }
+  .note strong { display: block; margin-bottom: 2px; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 6px 0 18px; }
+  .plan { background: var(--surface); border: 1px solid var(--separator); border-radius: 14px; padding: 14px 16px; }
+  .plan b { display: block; font-weight: 600; }
+  .plan span { font-size: 14px; color: var(--text-2); }
+
+  .contact {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 18px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .contact .addr { font: 500 16px/1.3 "Geist Mono", monospace; user-select: all; overflow-wrap: anywhere; }
+  .button {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px;
+    padding: 11px 18px; border-radius: 999px;
+  }
+  .button:hover { text-decoration: none; filter: brightness(1.06); }
+
+  footer { border-top: 1px solid var(--separator); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); color: var(--text-3); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a { color: var(--text-2); }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .hero { padding-block: 40px 28px; }
+    .lede { font-size: 17px; }
+    .glance { padding: 20px; border-radius: 18px; margin-bottom: 36px; }
+    h2.sec { font-size: 21px; }
+    .bar nav a { padding: 6px 10px; }
+  }
+  @media (max-width: 400px) {
+    header.bar .wrap { gap: 8px; }
+    .brand { font-size: 0; gap: 0; }
+    .bar nav { gap: 2px; }
+    .bar nav a { padding: 6px 8px; font-size: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    header.bar, .toc { display: none; }
+    .layout { display: block; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+<link rel="canonical" href="https://trysafebox.app/support/">
+<link rel="icon" href="/favicon.png">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="https://trysafebox.app/" aria-label="SafeBox home">
+      <span class="tile" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8.6" r="4.6" fill="var(--keyhole)"/><path d="M9.6 11.5 8.3 19.4a1.4 1.4 0 0 0 1.4 1.6h4.6a1.4 1.4 0 0 0 1.4-1.6l-1.3-7.9Z" fill="var(--keyhole)"/></svg>
+      </span>
+      SafeBox
+    </a>
+    <nav aria-label="Legal">
+      <a href="https://trysafebox.app/privacy/">Privacy</a>
+      <a href="https://trysafebox.app/terms/">Terms</a>
+      <a href="#top" aria-current="page">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <p class="overline">Support</p>
+      <h1>How can we <em>help</em>?</h1>
+      <p class="lede">Answers to the questions people ask most about SafeBox. Still stuck? Email us and we’ll get back to you.</p>
+    </div>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Contents">
+        <details open>
+          <summary>Contents</summary>
+          <ol>
+            <li><a href="#passcode">I forgot my passcode</a></li>
+            <li><a href="#new-iphone">Moving to a new iPhone or iPad</a></li>
+            <li><a href="#delete-app">Will deleting SafeBox delete my files?</a></li>
+            <li><a href="#update">I updated from an earlier version. Is everything still there?</a></li>
+            <li><a href="#purchases">Restore a purchase or manage SafeBox Plus</a></li>
+            <li><a href="#decoy">What is the decoy vault?</a></li>
+            <li><a href="#ads">Does SafeBox show ads or upload my files?</a></li>
+            <li><a href="#contact">Contact us</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <article>
+
+        <section id="passcode">
+          <h2 class="sec">I forgot my passcode</h2>
+          <p>On the lock screen, tap <b>Forgot passcode?</b>. If you added a recovery email, SafeBox emails you a one-time code so you can set a new passcode. If you created a <b>Recovery Key</b>, you can use it instead.</p><p>Your passcode is never sent anywhere, so without a recovery email or a Recovery Key it can’t be reset, and we can’t open your vault for you. Add one today in Settings.</p>
+        </section>
+
+        <section id="new-iphone">
+          <h2 class="sec">Moving to a new iPhone or iPad</h2>
+          <ol><li>On your old device, open <b>Settings › Backup &amp; Sync</b> and tap <b>Export Backup</b>. SafeBox asks for your Recovery Key (or creates one and shows it once: write it down) and saves an encrypted <code>.safebox</code> file to Files.</li><li>Move that file to the new device, for example with AirDrop or iCloud Drive.</li><li>Install SafeBox on the new device, set a passcode, then open <b>Settings › Backup &amp; Sync</b>, tap <b>Restore from Backup</b>, pick the file and enter the Recovery Key.</li></ol><p>The backup file is free. Restoring only adds what’s missing; it never replaces or deletes anything already in SafeBox.</p>
+        </section>
+
+        <section id="delete-app">
+          <h2 class="sec">Will deleting SafeBox delete my files?</h2>
+          <p>Yes. Your vault lives on your device, so deleting the app deletes what’s in it. Export a backup first (see above) if you might want it back.</p>
+        </section>
+
+        <section id="update">
+          <h2 class="sec">I updated from an earlier version. Is everything still there?</h2>
+          <p>Yes. Unlock with your usual passcode and your albums, folders, notes and files are all there. After the first unlock, SafeBox encrypts your existing files in the background, one at a time; you’ll see the progress on the Home screen’s storage card. Keep the app open for a while if you have a lot of files.</p>
+        </section>
+
+        <section id="purchases">
+          <h2 class="sec">Restore a purchase or manage SafeBox Plus</h2>
+          <p>Open the SafeBox Plus screen in the app and tap <b>Restore Purchases</b>. Purchases are tied to your Apple Account, not to a SafeBox account (there isn’t one).</p><p>To change or cancel your plan, use <b>Manage Subscription</b> in the app, or the <a href="https://apps.apple.com/account/subscriptions">subscriptions page of your Apple Account</a>. Refunds are handled by Apple at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p>
+        </section>
+
+        <section id="decoy">
+          <h2 class="sec">What is the decoy vault?</h2>
+          <p>With SafeBox Plus you can set a second passcode that opens a separate vault with its own content. Nothing in the app shows that it exists.</p>
+        </section>
+
+        <section id="ads">
+          <h2 class="sec">Does SafeBox show ads or upload my files?</h2>
+          <p>No ads, ever. Your photos and files stay on your device, and there is no SafeBox server that stores them. The <a href="https://trysafebox.app/privacy/">Privacy Policy</a> lists the little that does leave your device.</p>
+        </section>
+
+        <section id="contact">
+          <h2 class="sec">Contact us</h2>
+          <p>Tell us your iPhone or iPad model and the SafeBox version (Settings › About). Never send your passcode or Recovery Key: we will never ask for them.</p>
+          <div class="contact">
+            <span class="addr">bytetechlabs@gmail.com</span>
+            <a class="button" href="mailto:bytetechlabs@gmail.com?subject=SafeBox%20Support">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+              Email us
+            </a>
+          </div>
+        
+        </section>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Byte Tech Labs · SafeBox</span>
+    <span><a href="https://trysafebox.app/privacy/">Privacy Policy</a> · <a href="https://trysafebox.app/terms/">Terms of Use</a> · <a href="#top">Support</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

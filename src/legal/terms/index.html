@@ -216,6 +216,12 @@
     h2.sec { font-size: 21px; }
     .bar nav a { padding: 6px 10px; }
   }
+  @media (max-width: 400px) {
+    header.bar .wrap { gap: 8px; }
+    .brand { font-size: 0; gap: 0; }
+    .bar nav { gap: 2px; }
+    .bar nav a { padding: 6px 8px; font-size: 14px; }
+  }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   @media print {
     header.bar, .toc { display: none; }
@@ -223,6 +229,7 @@
     body { background: #fff; color: #000; }
   }
 </style>
+<link rel="icon" href="/favicon.png">
 </head>
 <body>
 
@@ -237,6 +244,7 @@
     <nav aria-label="Legal">
       <a href="https://trysafebox.app/privacy/">Privacy</a>
       <a href="#top" aria-current="page">Terms</a>
+      <a href="https://trysafebox.app/support/">Support</a>
     </nav>
   </div>
 </header>
@@ -522,7 +530,7 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Byte Tech Labs · SafeBox</span>
-    <span><a href="https://trysafebox.app/privacy/">Privacy Policy</a> · <a href="#top">Terms of Use</a></span>
+    <span><a href="https://trysafebox.app/privacy/">Privacy Policy</a> · <a href="#top">Terms of Use</a> · <a href="https://trysafebox.app/support/">Support</a></span>
   </div>
 </footer>
 
