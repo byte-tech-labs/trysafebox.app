@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SafeBox Terms of Use</title>
+<meta name="description" content="The End-User License Agreement for SafeBox, the private vault for photos, videos, documents, notes and cards on iPhone and iPad.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F5F6F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0E0D" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  /* Keylight, SafeBox's design language: quiet green-black neutrals and one luminous accent. */
+  :root {
+    --canvas: #F5F6F3;
+    --surface: #FFFFFF;
+    --sunken: #ECEEEA;
+    --separator: rgba(14, 20, 18, 0.10);
+    --text: #0E1412;
+    --text-2: #5A6560;
+    --text-3: #646E69;
+    --accent: #0B7A5E;
+    --accent-soft: rgba(11, 122, 94, 0.12);
+    --on-accent: #FFFFFF;
+    --warning: #9A5B00;
+    --warning-soft: rgba(154, 91, 0, 0.10);
+    --tile-top: #5BE8C4;
+    --tile-bottom: #0E8F75;
+    --keyhole: #FFFFFF;
+    --glow: transparent;
+    --shadow: 0 1px 2px rgba(14, 20, 18, 0.04), 0 8px 24px rgba(14, 20, 18, 0.06);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --canvas: #0A0E0D;
+      --surface: #121816;
+      --sunken: #070A09;
+      --separator: rgba(242, 245, 244, 0.12);
+      --text: #F2F5F4;
+      --text-2: #9AA5A0;
+      --text-3: #7D8782;
+      --accent: #3DDBB0;
+      --accent-soft: rgba(61, 219, 176, 0.15);
+      --on-accent: #0A0E0D;
+      --warning: #FFB547;
+      --warning-soft: rgba(255, 181, 71, 0.12);
+      --tile-top: #0F4A3D;
+      --tile-bottom: #06100E;
+      --keyhole: #3DDBB0;
+      --glow: rgba(61, 219, 176, 0.22);
+      --shadow: none;
+      color-scheme: dark;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--text);
+    font: 400 17px/1.6 "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Top bar */
+  header.bar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--canvas) 82%, transparent);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    border-bottom: 1px solid var(--separator);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  header.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; letter-spacing: -0.01em; font-size: 17px; }
+  .tile {
+    width: 30px; height: 30px; border-radius: 8px; flex: none;
+    background: linear-gradient(180deg, var(--tile-top), var(--tile-bottom));
+    display: grid; place-items: center;
+    box-shadow: 0 0 18px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .tile svg { width: 62%; height: 62%; }
+  .bar nav { display: flex; gap: 4px; }
+  .bar nav a {
+    font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .bar nav a:hover { background: var(--accent-soft); color: var(--text); }
+  .bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+
+  /* Hero */
+  .hero { padding-block: 64px 40px; }
+  .overline {
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font: 400 clamp(44px, 8vw, 72px)/1.02 "Instrument Serif", Georgia, serif;
+    letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 19px; line-height: 1.55; color: var(--text-2); max-width: 60ch; margin: 0 0 28px; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: 500 13px/1 "Geist Mono", ui-monospace, monospace;
+    padding: 8px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--separator); color: var(--text-2);
+  }
+  .chip b { color: var(--text); font-weight: 500; }
+
+  /* Plain-language summary */
+  .glance {
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 22px; box-shadow: var(--shadow);
+    padding: 28px; margin-bottom: 56px;
+  }
+  .glance h2 { font: 600 19px/1.3 "Geist", sans-serif; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .glance > p { margin: 0 0 22px; color: var(--text-2); font-size: 15px; }
+  .glance ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .glance li { display: flex; gap: 12px; align-items: flex-start; background: var(--canvas); border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.45; }
+  .glance li svg { flex: none; width: 22px; height: 22px; margin-top: 1px; color: var(--accent); }
+  .glance li strong { display: block; font-weight: 600; margin-bottom: 2px; }
+  .glance li span { color: var(--text-2); }
+
+  /* Layout: contents beside the text on wide screens */
+  .layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: 80px; }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: 250px minmax(0, 1fr); gap: 64px; }
+    .toc { position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; }
+    .toc summary { pointer-events: none; }
+    .toc summary::after { display: none; }
+  }
+
+  .toc { font-size: 14px; }
+  .toc details { background: var(--surface); border: 1px solid var(--separator); border-radius: 16px; padding: 6px; }
+  @media (min-width: 960px) { .toc details { background: none; border: 0; padding: 0; } }
+  .toc summary {
+    list-style: none; cursor: pointer; padding: 10px 12px;
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc summary::after { content: "+"; font: 400 18px/1 "Geist Mono", monospace; color: var(--text-2); }
+  .toc details[open] summary::after { content: "−"; }
+  .toc ol { list-style: none; margin: 0; padding: 0 0 6px; counter-reset: toc; }
+  .toc li { counter-increment: toc; }
+  .toc a {
+    display: flex; gap: 10px; padding: 7px 12px; border-radius: 10px; text-decoration: none; color: var(--text-2); line-height: 1.35;
+  }
+  .toc a::before { content: counter(toc, decimal-leading-zero); font: 400 12px/1.6 "Geist Mono", monospace; color: var(--text-3); }
+  .toc a:hover { background: var(--accent-soft); color: var(--text); }
+
+  /* Agreement text */
+  article { max-width: 68ch; counter-reset: sec; }
+  section { counter-increment: sec; padding-top: 8px; margin-bottom: 44px; }
+  section + section { border-top: 1px solid var(--separator); padding-top: 40px; }
+  h2.sec {
+    font: 600 24px/1.25 "Geist", sans-serif; letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  h2.sec::before { content: counter(sec, decimal-leading-zero); font: 500 13px/1 "Geist Mono", monospace; color: var(--accent); letter-spacing: 0; transform: translateY(-3px); }
+  h3 { font: 600 17px/1.35 "Geist", sans-serif; margin: 26px 0 8px; }
+  p { margin: 0 0 14px; text-wrap: pretty; }
+  article ul { margin: 0 0 14px; padding-left: 0; list-style: none; }
+  article ul li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  article ul li::before { content: ""; position: absolute; left: 4px; top: 0.72em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  dl { margin: 0 0 14px; display: grid; gap: 2px; background: var(--separator); border: 1px solid var(--separator); border-radius: 16px; overflow: hidden; }
+  dl div { background: var(--surface); padding: 14px 18px; }
+  dt { font-weight: 600; margin-bottom: 2px; }
+  dd { margin: 0; color: var(--text-2); font-size: 16px; }
+  .caps { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+  .note {
+    border-radius: 14px; padding: 14px 18px; margin: 18px 0; font-size: 16px;
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+  }
+  .note.warn { background: var(--warning-soft); border-left-color: var(--warning); }
+  .note strong { display: block; margin-bottom: 2px; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 6px 0 18px; }
+  .plan { background: var(--surface); border: 1px solid var(--separator); border-radius: 14px; padding: 14px 16px; }
+  .plan b { display: block; font-weight: 600; }
+  .plan span { font-size: 14px; color: var(--text-2); }
+
+  .contact {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 18px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .contact .addr { font: 500 16px/1.3 "Geist Mono", monospace; user-select: all; overflow-wrap: anywhere; }
+  .button {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px;
+    padding: 11px 18px; border-radius: 999px;
+  }
+  .button:hover { text-decoration: none; filter: brightness(1.06); }
+
+  footer { border-top: 1px solid var(--separator); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); color: var(--text-3); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a { color: var(--text-2); }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .hero { padding-block: 40px 28px; }
+    .lede { font-size: 17px; }
+    .glance { padding: 20px; border-radius: 18px; margin-bottom: 36px; }
+    h2.sec { font-size: 21px; }
+    .bar nav a { padding: 6px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    header.bar, .toc { display: none; }
+    .layout { display: block; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="https://trysafebox.app/" aria-label="SafeBox home">
+      <span class="tile" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8.6" r="4.6" fill="var(--keyhole)"/><path d="M9.6 11.5 8.3 19.4a1.4 1.4 0 0 0 1.4 1.6h4.6a1.4 1.4 0 0 0 1.4-1.6l-1.3-7.9Z" fill="var(--keyhole)"/></svg>
+      </span>
+      SafeBox
+    </a>
+    <nav aria-label="Legal">
+      <a href="https://trysafebox.app/privacy/">Privacy</a>
+      <a href="#top" aria-current="page">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <p class="overline">End-User License Agreement</p>
+      <h1>Terms of <em>Use</em></h1>
+      <p class="lede">The agreement between you and Byte Tech Labs for using SafeBox, the private vault for your photos, videos, audio, documents, notes and cards on iPhone and iPad.</p>
+      <div class="meta">
+        <span class="chip">Last updated <b>13 Nov 2026</b></span>
+        <span class="chip">Applies to <b>SafeBox 4.0</b> and later</span>
+      </div>
+    </div>
+
+    <aside class="glance" aria-labelledby="glance-title">
+      <h2 id="glance-title">The short version</h2>
+      <p>A plain-language summary. It doesn’t replace the full agreement below, which is what applies.</p>
+      <ul>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <div><strong>Your content is yours</strong><span>It stays on your device. We have no account for you and no copy of your vault.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><strong>Keep your passcode safe</strong><span>We can’t open your vault. If you lose your passcode and recovery email, items can be lost.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5Z"/></svg>
+          <div><strong>iCloud is your own</strong><span>Sync uses your private iCloud. Only sealed, encrypted data leaves your device.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg>
+          <div><strong>No ads, ever</strong><span>SafeBox Plus is an optional purchase through Apple. Cancel any time in your Apple account.</span></div>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Contents">
+        <details open>
+          <summary>Contents</summary>
+          <ol>
+            <li><a href="#definitions">Interpretation and definitions</a></li>
+            <li><a href="#acknowledgment">Acknowledgment</a></li>
+            <li><a href="#license">License</a></li>
+            <li><a href="#content">Your content and security</a></li>
+            <li><a href="#icloud">iCloud Sync and backup</a></li>
+            <li><a href="#features">Security features</a></li>
+            <li><a href="#plus">SafeBox Plus and purchases</a></li>
+            <li><a href="#acceptable-use">Acceptable use</a></li>
+            <li><a href="#ip">Intellectual property</a></li>
+            <li><a href="#updates">Updates and changes to the app</a></li>
+            <li><a href="#support">Maintenance and support</a></li>
+            <li><a href="#third-party">Third-party services</a></li>
+            <li><a href="#termination">Term and termination</a></li>
+            <li><a href="#indemnification">Indemnification</a></li>
+            <li><a href="#warranties">No warranties</a></li>
+            <li><a href="#liability">Limitation of liability</a></li>
+            <li><a href="#severability">Severability and waiver</a></li>
+            <li><a href="#product-claims">Product claims</a></li>
+            <li><a href="#us-compliance">United States legal compliance</a></li>
+            <li><a href="#changes">Changes to this agreement</a></li>
+            <li><a href="#law">Governing law</a></li>
+            <li><a href="#entire">Entire agreement</a></li>
+            <li><a href="#contact">Contact us</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <article>
+        <section id="definitions">
+          <h2 class="sec">Interpretation and definitions</h2>
+          <h3>Interpretation</h3>
+          <p>Words with a capitalised first letter have the meanings defined below. These definitions have the same meaning whether they appear in the singular or the plural.</p>
+          <h3>Definitions</h3>
+          <p>For the purposes of this End-User License Agreement:</p>
+          <dl>
+            <div><dt>Agreement</dt><dd>This End-User License Agreement, which forms the entire agreement between You and the Company regarding the use of the Application.</dd></div>
+            <div><dt>Application</dt><dd>The software program named SafeBox (formerly Photo Vault – PixBox), provided by the Company and downloaded by You through the Application Store to a Device, including any updates.</dd></div>
+            <div><dt>Application Store</dt><dd>The Apple App Store, the digital distribution service operated by Apple Inc. through which the Application is downloaded.</dd></div>
+            <div><dt>Company</dt><dd>Byte Tech Labs, referred to as “the Company”, “We”, “Us” or “Our” in this Agreement.</dd></div>
+            <div><dt>Content</dt><dd>Anything You add to the Application, such as photos, videos, audio, documents, notes, cards and their names.</dd></div>
+            <div><dt>Country</dt><dd>Singapore.</dd></div>
+            <div><dt>Device</dt><dd>An iPhone, iPad or other Apple device that can run the Application.</dd></div>
+            <div><dt>Family Sharing</dt><dd>Apple’s feature that lets You share eligible Applications and purchases with members of Your family group.</dd></div>
+            <div><dt>SafeBox Plus</dt><dd>The optional paid tier of the Application, offered as an auto-renewing subscription or a one-time lifetime purchase.</dd></div>
+            <div><dt>Third-Party Services</dt><dd>Services provided by a third party that the Application uses or makes available, such as Apple iCloud, Apple’s payment system, RevenueCat and Google Analytics for Firebase.</dd></div>
+            <div><dt>You</dt><dd>The individual using the Application, or the company or other legal entity on whose behalf that individual is using it, as applicable.</dd></div>
+          </dl>
+        </section>
+
+        <section id="acknowledgment">
+          <h2 class="sec">Acknowledgment</h2>
+          <p>By downloading or using the Application, You agree to be bound by this Agreement. If You do not agree, do not download or use the Application.</p>
+          <p>This Agreement is a legal document between You and the Company, and it governs Your use of the Application.</p>
+          <p>This Agreement is between You and the Company only, not with the Application Store. The Company, not Apple, is solely responsible for the Application and its content. Although Apple is not a party to this Agreement, Apple and its subsidiaries are third-party beneficiaries of it and, once You accept it, have the right to enforce it against You.</p>
+          <p>Because the Application can be used by others through Family Sharing or volume purchasing, their use of the Application is also subject to this Agreement.</p>
+          <p>The Application is licensed, not sold, to You by the Company for use strictly in accordance with this Agreement.</p>
+        </section>
+
+        <section id="license">
+          <h2 class="sec">License</h2>
+          <h3>Scope of license</h3>
+          <p>The Company grants You a revocable, non-exclusive, non-transferable, limited license to download, install and use the Application strictly in accordance with this Agreement.</p>
+          <p>You may only use the Application on a Device that You own or control, and as permitted by the Application Store’s Usage Rules.</p>
+          <p>The license is for Your personal, non-commercial use.</p>
+          <h3>License restrictions</h3>
+          <p>You agree not to, and will not permit others to:</p>
+          <ul>
+            <li>License, sell, rent, lease, assign, distribute, transmit, host, outsource, disclose or otherwise commercially exploit the Application, or make it available to any third party.</li>
+            <li>Copy, modify, reverse engineer, decompile or disassemble the Application, or try to derive its source code, except where the law expressly allows it.</li>
+            <li>Circumvent or interfere with the Application’s security features or its purchase and licensing checks.</li>
+            <li>Remove, alter or obscure any proprietary notice (including any copyright or trademark notice) of the Company or its affiliates, partners, suppliers or licensors.</li>
+          </ul>
+        </section>
+
+        <section id="content">
+          <h2 class="sec">Your content and security</h2>
+          <p>Your Content belongs to You. The Company claims no ownership of it and receives no license to it.</p>
+          <p>The Application stores Your Content on Your Device. We do not run servers that store Your Content, We have no account for You, and We cannot see, open or recover what is in Your vault. Content is protected with encryption keys that are derived from Your passcode and kept on Your Device.</p>
+          <div class="note warn">
+            <strong>Your passcode is the key</strong>
+            You are responsible for remembering Your passcode and keeping Your recovery email up to date. The Company has no way to open a vault for You. If You forget Your passcode and cannot use a recovery option, Your Content may be permanently lost.
+          </div>
+          <h3>Recovery email</h3>
+          <p>If You add a recovery email, the Application sends one-time codes to that address to confirm it and to let You reset Your passcode. The address is used only to send these codes. Codes expire after a short time and must be entered in the Application.</p>
+          <h3>Updating from an earlier version</h3>
+          <p>When You update from an earlier version of the Application, Your existing albums, folders, items and notes are moved into the new encrypted store automatically after You unlock. Files are then encrypted in the background. Keep the Application open now and then and keep enough free storage until this finishes.</p>
+          <h3>Keep your own backups</h3>
+          <p>Devices can be lost, damaged or reset, and deleting the Application deletes everything in it. You are responsible for keeping backups of Content that matters to You, for example with iCloud Sync or an encrypted backup file.</p>
+          <p>Our <a href="https://trysafebox.app/privacy/">Privacy Policy</a> explains what information the Application handles and how.</p>
+        </section>
+
+        <section id="icloud">
+          <h2 class="sec">iCloud Sync and backup</h2>
+          <p>iCloud Sync and encrypted backup are optional features of SafeBox Plus. When You turn on iCloud Sync, the Application seals Your Content on Your Device and stores only that encrypted data in the private iCloud database of Your own Apple Account. The Company cannot access it.</p>
+          <ul>
+            <li>iCloud is provided by Apple under Apple’s own terms. iCloud storage, availability and any storage plan are between You and Apple.</li>
+            <li>Your passcodes are never synced. Each Device keeps its own passcode, and You enter it on each Device.</li>
+            <li>When something is deleted on another Device, the Application moves it to Trash on this Device rather than erasing it straight away.</li>
+            <li>Sync depends on Your network, Your iCloud account and Your available iCloud storage. It can be delayed or paused, for example while waiting for Wi-Fi.</li>
+            <li>If You stop syncing and choose to delete Your data from iCloud, that copy is removed and cannot be restored from iCloud.</li>
+          </ul>
+        </section>
+
+        <section id="features">
+          <h2 class="sec">Security features</h2>
+          <p>Break-in alerts can take a photo with the front camera when someone enters a wrong passcode. A decoy vault opens a separate, harmless vault with a different passcode. These photos and the decoy vault stay on Your Device.</p>
+          <p>You agree to use these features only to protect Your own Device and Content, and in line with the laws that apply to You, including laws on recording or photographing other people.</p>
+          <p>No security feature is perfect. The Application helps keep Your Content private, but the Company cannot guarantee that it will stop every attempt to access a Device or its Content.</p>
+        </section>
+
+        <section id="plus">
+          <h2 class="sec">SafeBox Plus and purchases</h2>
+          <p>The Application is free to download and use, within the limits shown in the Application. It has no ads. SafeBox Plus removes those limits and adds features such as iCloud Sync, encrypted backup, break-in alerts, the decoy vault, PDF tools, accent colours and app icons. The features included may change over time.</p>
+          <div class="plans">
+            <div class="plan"><b>Monthly</b><span>Auto-renewing subscription, billed every month.</span></div>
+            <div class="plan"><b>Annual</b><span>Auto-renewing subscription, billed every year. May include a free trial.</span></div>
+            <div class="plan"><b>Lifetime</b><span>One-time purchase. No renewal.</span></div>
+          </div>
+          <p>Prices are shown in the Application before You buy and may vary by country.</p>
+          <h3>Subscriptions</h3>
+          <ul>
+            <li>Payment is charged to Your Apple Account when You confirm the purchase.</li>
+            <li>A subscription renews automatically unless it is turned off at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the current period.</li>
+            <li>You can manage or cancel a subscription in Your Apple Account settings. Cancelling stops future renewals; You keep SafeBox Plus until the end of the period You paid for.</li>
+            <li>If a free trial is offered, any unused part of it ends when You buy a subscription. If You don’t cancel before the trial ends, the subscription starts and You are charged.</li>
+          </ul>
+          <h3>Refunds and restoring purchases</h3>
+          <p>All purchases are processed by Apple. Refunds are handled by Apple under its policies; the Company cannot issue them directly. You can restore earlier purchases on a new Device with Restore Purchases in the Application.</p>
+          <p>If SafeBox Plus ends, everything You already added stays in Your vault and remains available. Plus features and adding beyond the free limits stop until You subscribe again.</p>
+        </section>
+
+        <section id="acceptable-use">
+          <h2 class="sec">Acceptable use</h2>
+          <p>You agree not to use the Application to store, share or process Content that is illegal, or that You have no right to hold, and not to use it in a way that breaks any law that applies to You. You are solely responsible for Your Content and for how You use the Application.</p>
+        </section>
+
+        <section id="ip">
+          <h2 class="sec">Intellectual property</h2>
+          <p>The Application, including all copyrights, patents, trademarks, trade secrets and other intellectual property rights in it, is and will remain the sole and exclusive property of the Company and its licensors. Open-source components are used under their own licenses, listed in the Application under About › Acknowledgements.</p>
+          <p>The Company is not obliged to indemnify or defend You against any third-party claim arising out of or relating to the Application. To the extent the Company is required by law to provide indemnification, the Company, not Apple, is solely responsible for the investigation, defence, settlement and discharge of any claim that the Application or Your use of it infringes a third party’s intellectual property rights.</p>
+        </section>
+
+        <section id="updates">
+          <h2 class="sec">Updates and changes to the app</h2>
+          <p>The Company may provide updates, including patches, bug fixes, upgrades and new features. Updates may change or remove some features. You agree that the Company is not obliged to provide updates or to keep any particular feature available.</p>
+          <p>All updates form part of the Application and are subject to this Agreement.</p>
+          <p>The Company may modify, suspend or discontinue the Application, or any service it connects to, temporarily or permanently, with or without notice and without liability to You. Because Your Content is stored on Your Device and in Your own iCloud, it stays with You if the Application is discontinued.</p>
+        </section>
+
+        <section id="support">
+          <h2 class="sec">Maintenance and support</h2>
+          <p>The Company offers support by email on a reasonable-efforts basis. You can reach us from Settings › Send Feedback in the Application or at the address below. The Company, not Apple, is responsible for any maintenance and support of the Application, and Apple has no obligation to provide any.</p>
+        </section>
+
+        <section id="third-party">
+          <h2 class="sec">Third-party services</h2>
+          <p>The Application uses Third-Party Services: Apple’s App Store payment system and iCloud, RevenueCat to confirm purchases anonymously, and Google Analytics for Firebase to collect anonymous usage statistics, which You can turn off in Settings › About › Share usage data. Recovery codes are sent by email through a mail service the Company operates for that purpose. Links in the Application may also open third-party websites.</p>
+          <p>The Company is not responsible for Third-Party Services, including their accuracy, availability, legality or quality, and has no liability to You for them. You use them at Your own risk and subject to their own terms. You must also comply with any applicable third-party terms, such as Your wireless data service agreement, when using the Application.</p>
+        </section>
+
+        <section id="termination">
+          <h2 class="sec">Term and termination</h2>
+          <p>This Agreement remains in effect until terminated by You or the Company. The Company may, at its sole discretion, suspend or terminate this Agreement at any time, for any or no reason, with or without notice.</p>
+          <p>This Agreement ends immediately, without notice, if You fail to comply with any of its provisions. You can end it at any time by deleting the Application from all of Your Devices. Deleting the Application deletes the Content stored in it on that Device.</p>
+          <p>When this Agreement ends, You must stop using the Application and delete all copies of it. Ending this Agreement does not limit any of the Company’s rights or remedies at law or in equity for a breach by You.</p>
+        </section>
+
+        <section id="indemnification">
+          <h2 class="sec">Indemnification</h2>
+          <p>You agree to indemnify and hold harmless the Company and its parents, subsidiaries, affiliates, officers, employees, agents, partners and licensors (if any) from any claim or demand, including reasonable attorneys’ fees, arising out of: (a) Your use of the Application; (b) Your violation of this Agreement or any law or regulation; or (c) Your violation of any right of a third party.</p>
+        </section>
+
+        <section id="warranties">
+          <h2 class="sec">No warranties</h2>
+          <p class="caps">The Application is provided to You “AS IS” and “AS AVAILABLE”, with all faults and defects, without warranty of any kind. To the maximum extent permitted by applicable law, the Company, on its own behalf and on behalf of its affiliates and its and their licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. Without limiting the foregoing, the Company makes no warranty or representation that the Application will meet Your requirements, achieve any intended results, be compatible with any other software, systems or services, operate without interruption, meet any performance or reliability standards, be error free, or that any errors or defects can or will be corrected.</p>
+          <p class="caps">Neither the Company nor any of its providers makes any representation or warranty, express or implied: (i) as to the operation or availability of the Application or the information, content and materials included in it; (ii) that the Application will be uninterrupted or error-free; (iii) as to the accuracy, reliability or currency of any information or content provided through it; or (iv) that the Application, the content, or emails sent from or on behalf of the Company are free of viruses, scripts, trojan horses, worms, malware, timebombs or other harmful components.</p>
+          <p>Some jurisdictions do not allow the exclusion of certain warranties or limits on a consumer’s statutory rights, so some or all of these exclusions may not apply to You. In that case they apply to the greatest extent enforceable under applicable law. If the Application fails to conform to any applicable warranty, You may notify Apple, and Apple will refund the purchase price (if any) for the Application to You. To the maximum extent permitted by law, Apple has no other warranty obligation with respect to the Application, and any other warranty that cannot be disclaimed is the sole responsibility of the Company.</p>
+        </section>
+
+        <section id="liability">
+          <h2 class="sec">Limitation of liability</h2>
+          <p>Whatever damages You might incur, the entire liability of the Company and its suppliers under this Agreement, and Your exclusive remedy, is limited to the amount You actually paid for the Application or through the Application in the twelve months before the claim, or 100 USD if You have not purchased anything.</p>
+          <p class="caps">To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect or consequential damages whatsoever (including, but not limited to, damages for loss of profits, loss of data or other information, business interruption, personal injury, or loss of privacy arising out of or in any way related to the use of or inability to use the Application, third-party software or hardware used with the Application, or otherwise in connection with this Agreement), even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.</p>
+          <p>Some jurisdictions do not allow the exclusion or limitation of incidental or consequential damages, so the above limitation may not apply to You.</p>
+          <p>You expressly understand and agree that Apple, its subsidiaries, affiliates and licensors shall not be liable to You under any theory of liability for any direct, indirect, incidental, special, consequential or exemplary damages You may incur, including any loss of data, whether or not Apple has been advised of the possibility of such losses.</p>
+        </section>
+
+        <section id="severability">
+          <h2 class="sec">Severability and waiver</h2>
+          <h3>Severability</h3>
+          <p>If any provision of this Agreement is held to be unenforceable or invalid, it will be changed and interpreted to accomplish its objectives to the greatest extent possible under applicable law, and the remaining provisions will continue in full force and effect.</p>
+          <h3>Waiver</h3>
+          <p>Except as provided here, failing to exercise a right or to require performance of an obligation under this Agreement does not affect a party’s ability to do so later, and waiving a breach does not waive any later breach.</p>
+        </section>
+
+        <section id="product-claims">
+          <h2 class="sec">Product claims</h2>
+          <p>The Company, not Apple, is responsible for addressing any claims by You or any third party relating to the Application or Your possession or use of it, including: (i) product liability claims; (ii) any claim that the Application fails to conform to any applicable legal or regulatory requirement; and (iii) claims arising under consumer protection, privacy or similar legislation.</p>
+        </section>
+
+        <section id="us-compliance">
+          <h2 class="sec">United States legal compliance</h2>
+          <p>You represent and warrant that (i) You are not located in a country that is subject to a United States government embargo, or that has been designated by the United States government as a “terrorist supporting” country, and (ii) You are not listed on any United States government list of prohibited or restricted parties.</p>
+        </section>
+
+        <section id="changes">
+          <h2 class="sec">Changes to this agreement</h2>
+          <p>The Company may modify or replace this Agreement at any time. If a change is material, We will give at least 30 days’ notice, on this page or in the Application, before the new terms take effect. What counts as a material change is determined at the Company’s sole discretion.</p>
+          <p>By continuing to use the Application after a change takes effect, You agree to the revised terms. If You do not agree, You must stop using the Application.</p>
+        </section>
+
+        <section id="law">
+          <h2 class="sec">Governing law</h2>
+          <p>The laws of the Country, excluding its conflict of law rules, govern this Agreement and Your use of the Application. Your use of the Application may also be subject to other local, state, national or international laws. Nothing in this Agreement limits any rights You have under the mandatory consumer protection laws of the country where You live.</p>
+        </section>
+
+        <section id="entire">
+          <h2 class="sec">Entire agreement</h2>
+          <p>This Agreement, together with our <a href="https://trysafebox.app/privacy/">Privacy Policy</a>, is the entire agreement between You and the Company regarding Your use of the Application, and it supersedes all prior and contemporaneous written or oral agreements between You and the Company.</p>
+          <p>Purchases are also subject to the Apple Media Services Terms and Conditions.</p>
+        </section>
+
+        <section id="contact">
+          <h2 class="sec">Contact us</h2>
+          <p>Questions about this Agreement, or any claim relating to the Application, can be sent to Byte Tech Labs by email:</p>
+          <div class="contact">
+            <span class="addr">bytetechlabs@gmail.com</span>
+            <a class="button" href="mailto:bytetechlabs@gmail.com?subject=SafeBox%20Terms%20of%20Use">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+              Email us
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Byte Tech Labs · SafeBox</span>
+    <span><a href="https://trysafebox.app/privacy/">Privacy Policy</a> · <a href="#top">Terms of Use</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

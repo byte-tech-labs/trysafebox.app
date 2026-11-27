@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SafeBox Privacy Policy</title>
+<meta name="description" content="How SafeBox, the private vault for photos, videos, documents, notes and cards on iPhone and iPad, handles your information.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F5F6F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0E0D" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  /* Keylight, SafeBox's design language: quiet green-black neutrals and one luminous accent. */
+  :root {
+    --canvas: #F5F6F3;
+    --surface: #FFFFFF;
+    --sunken: #ECEEEA;
+    --separator: rgba(14, 20, 18, 0.10);
+    --text: #0E1412;
+    --text-2: #5A6560;
+    --text-3: #646E69;
+    --accent: #0B7A5E;
+    --accent-soft: rgba(11, 122, 94, 0.12);
+    --on-accent: #FFFFFF;
+    --warning: #9A5B00;
+    --warning-soft: rgba(154, 91, 0, 0.10);
+    --tile-top: #5BE8C4;
+    --tile-bottom: #0E8F75;
+    --keyhole: #FFFFFF;
+    --glow: transparent;
+    --shadow: 0 1px 2px rgba(14, 20, 18, 0.04), 0 8px 24px rgba(14, 20, 18, 0.06);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --canvas: #0A0E0D;
+      --surface: #121816;
+      --sunken: #070A09;
+      --separator: rgba(242, 245, 244, 0.12);
+      --text: #F2F5F4;
+      --text-2: #9AA5A0;
+      --text-3: #7D8782;
+      --accent: #3DDBB0;
+      --accent-soft: rgba(61, 219, 176, 0.15);
+      --on-accent: #0A0E0D;
+      --warning: #FFB547;
+      --warning-soft: rgba(255, 181, 71, 0.12);
+      --tile-top: #0F4A3D;
+      --tile-bottom: #06100E;
+      --keyhole: #3DDBB0;
+      --glow: rgba(61, 219, 176, 0.22);
+      --shadow: none;
+      color-scheme: dark;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--text);
+    font: 400 17px/1.6 "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Top bar */
+  header.bar {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--canvas) 82%, transparent);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    border-bottom: 1px solid var(--separator);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  header.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; letter-spacing: -0.01em; font-size: 17px; }
+  .tile {
+    width: 30px; height: 30px; border-radius: 8px; flex: none;
+    background: linear-gradient(180deg, var(--tile-top), var(--tile-bottom));
+    display: grid; place-items: center;
+    box-shadow: 0 0 18px var(--glow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .tile svg { width: 62%; height: 62%; }
+  .bar nav { display: flex; gap: 4px; }
+  .bar nav a {
+    font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .bar nav a:hover { background: var(--accent-soft); color: var(--text); }
+  .bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+
+  /* Hero */
+  .hero { padding-block: 64px 40px; }
+  .overline {
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font: 400 clamp(44px, 8vw, 72px)/1.02 "Instrument Serif", Georgia, serif;
+    letter-spacing: -0.02em; margin: 0 0 18px; text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 19px; line-height: 1.55; color: var(--text-2); max-width: 60ch; margin: 0 0 28px; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: 500 13px/1 "Geist Mono", ui-monospace, monospace;
+    padding: 8px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--separator); color: var(--text-2);
+  }
+  .chip b { color: var(--text); font-weight: 500; }
+
+  /* Plain-language summary */
+  .glance {
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 22px; box-shadow: var(--shadow);
+    padding: 28px; margin-bottom: 56px;
+  }
+  .glance h2 { font: 600 19px/1.3 "Geist", sans-serif; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .glance > p { margin: 0 0 22px; color: var(--text-2); font-size: 15px; }
+  .glance ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .glance li { display: flex; gap: 12px; align-items: flex-start; background: var(--canvas); border-radius: 14px; padding: 14px 16px; font-size: 15px; line-height: 1.45; }
+  .glance li svg { flex: none; width: 22px; height: 22px; margin-top: 1px; color: var(--accent); }
+  .glance li strong { display: block; font-weight: 600; margin-bottom: 2px; }
+  .glance li span { color: var(--text-2); }
+
+  /* Layout: contents beside the text on wide screens */
+  .layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: 80px; }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: 250px minmax(0, 1fr); gap: 64px; }
+    .toc { position: sticky; top: 88px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; }
+    .toc summary { pointer-events: none; }
+    .toc summary::after { display: none; }
+  }
+
+  .toc { font-size: 14px; }
+  .toc details { background: var(--surface); border: 1px solid var(--separator); border-radius: 16px; padding: 6px; }
+  @media (min-width: 960px) { .toc details { background: none; border: 0; padding: 0; } }
+  .toc summary {
+    list-style: none; cursor: pointer; padding: 10px 12px;
+    font: 600 12px/1.2 "Geist", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc summary::after { content: "+"; font: 400 18px/1 "Geist Mono", monospace; color: var(--text-2); }
+  .toc details[open] summary::after { content: "−"; }
+  .toc ol { list-style: none; margin: 0; padding: 0 0 6px; counter-reset: toc; }
+  .toc li { counter-increment: toc; }
+  .toc a {
+    display: flex; gap: 10px; padding: 7px 12px; border-radius: 10px; text-decoration: none; color: var(--text-2); line-height: 1.35;
+  }
+  .toc a::before { content: counter(toc, decimal-leading-zero); font: 400 12px/1.6 "Geist Mono", monospace; color: var(--text-3); }
+  .toc a:hover { background: var(--accent-soft); color: var(--text); }
+
+  /* Agreement text */
+  article { max-width: 68ch; counter-reset: sec; }
+  section { counter-increment: sec; padding-top: 8px; margin-bottom: 44px; }
+  section + section { border-top: 1px solid var(--separator); padding-top: 40px; }
+  h2.sec {
+    font: 600 24px/1.25 "Geist", sans-serif; letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  h2.sec::before { content: counter(sec, decimal-leading-zero); font: 500 13px/1 "Geist Mono", monospace; color: var(--accent); letter-spacing: 0; transform: translateY(-3px); }
+  h3 { font: 600 17px/1.35 "Geist", sans-serif; margin: 26px 0 8px; }
+  p { margin: 0 0 14px; text-wrap: pretty; }
+  article ul { margin: 0 0 14px; padding-left: 0; list-style: none; }
+  article ul li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+  article ul li::before { content: ""; position: absolute; left: 4px; top: 0.72em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  dl { margin: 0 0 14px; display: grid; gap: 2px; background: var(--separator); border: 1px solid var(--separator); border-radius: 16px; overflow: hidden; }
+  dl div { background: var(--surface); padding: 14px 18px; }
+  dt { font-weight: 600; margin-bottom: 2px; }
+  dd { margin: 0; color: var(--text-2); font-size: 16px; }
+  .caps { font-size: 15px; line-height: 1.6; color: var(--text-2); }
+  .note {
+    border-radius: 14px; padding: 14px 18px; margin: 18px 0; font-size: 16px;
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+  }
+  .note.warn { background: var(--warning-soft); border-left-color: var(--warning); }
+  .note strong { display: block; margin-bottom: 2px; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 6px 0 18px; }
+  .plan { background: var(--surface); border: 1px solid var(--separator); border-radius: 14px; padding: 14px 16px; }
+  .plan b { display: block; font-weight: 600; }
+  .plan span { font-size: 14px; color: var(--text-2); }
+
+  .contact {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--surface); border: 1px solid var(--separator); border-radius: 18px; padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .contact .addr { font: 500 16px/1.3 "Geist Mono", monospace; user-select: all; overflow-wrap: anywhere; }
+  .button {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px;
+    padding: 11px 18px; border-radius: 999px;
+  }
+  .button:hover { text-decoration: none; filter: brightness(1.06); }
+
+  footer { border-top: 1px solid var(--separator); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); color: var(--text-3); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a { color: var(--text-2); }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .hero { padding-block: 40px 28px; }
+    .lede { font-size: 17px; }
+    .glance { padding: 20px; border-radius: 18px; margin-bottom: 36px; }
+    h2.sec { font-size: 21px; }
+    .bar nav a { padding: 6px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media print {
+    header.bar, .toc { display: none; }
+    .layout { display: block; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="https://trysafebox.app/" aria-label="SafeBox home">
+      <span class="tile" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8.6" r="4.6" fill="var(--keyhole)"/><path d="M9.6 11.5 8.3 19.4a1.4 1.4 0 0 0 1.4 1.6h4.6a1.4 1.4 0 0 0 1.4-1.6l-1.3-7.9Z" fill="var(--keyhole)"/></svg>
+      </span>
+      SafeBox
+    </a>
+    <nav aria-label="Legal">
+      <a href="#top" aria-current="page">Privacy</a>
+      <a href="https://trysafebox.app/terms/">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <p class="overline">Privacy Policy</p>
+      <h1>Private by <em>design</em></h1>
+      <p class="lede">SafeBox keeps your photos, videos, audio, documents, notes and cards on your iPhone and iPad. This policy explains the little information that ever leaves your device, and why.</p>
+      <div class="meta">
+        <span class="chip">Last updated <b>13 Nov 2026</b></span>
+        <span class="chip">Applies to <b>SafeBox 4.0</b> and later</span>
+      </div>
+    </div>
+
+    <aside class="glance" aria-labelledby="glance-title">
+      <h2 id="glance-title">The short version</h2>
+      <p>A plain-language summary. The full policy below is what applies.</p>
+      <ul>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <div><strong>Your vault stays with you</strong><span>We have no servers that store your content and no account for you. We can’t see or open your vault.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></svg>
+          <div><strong>No ads, no tracking</strong><span>No advertising, no tracking across apps and no advertising identifiers. Usage statistics are anonymous and you can turn them off.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 8.5a4 4 0 0 1-.5 9.5Z"/></svg>
+          <div><strong>iCloud is yours and sealed</strong><span>Optional sync goes to your own private iCloud, encrypted on your device first.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+          <div><strong>Only what’s needed</strong><span>Your recovery email to send you a code, and an anonymous ID to confirm purchases. Nothing else.</span></div>
+        </li>
+      </ul>
+    </aside>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Contents">
+        <details open>
+          <summary>Contents</summary>
+          <ol>
+            <li><a href="#who">Who we are</a></li>
+            <li><a href="#on-device">What stays on your device</a></li>
+            <li><a href="#leaves">What leaves your device</a></li>
+            <li><a href="#permissions">Device permissions</a></li>
+            <li><a href="#not-collected">What we don’t do</a></li>
+            <li><a href="#third-party">Third-party services</a></li>
+            <li><a href="#retention">Keeping and deleting data</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#rights">Your rights</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#changes">Changes to this policy</a></li>
+            <li><a href="#contact">Contact us</a></li>
+          </ol>
+        </details>
+      </nav>
+
+      <article>
+        <section id="who">
+          <h2 class="sec">Who we are</h2>
+          <p>SafeBox (formerly Photo Vault – PixBox) is made by Byte Tech Labs (“we”, “us”). This policy covers the SafeBox app on iPhone and iPad. Using SafeBox is also subject to our <a href="https://trysafebox.app/terms/">Terms of Use</a>.</p>
+          <p>SafeBox does not require an account. We don’t ask for your name, phone number or any profile, and the name you may enter during setup stays on your device.</p>
+        </section>
+
+        <section id="on-device">
+          <h2 class="sec">What stays on your device</h2>
+          <p>Everything you add to SafeBox is stored on your device and is not sent to us:</p>
+          <ul>
+            <li>Photos, videos, audio, documents, notes, cards and IDs, and the names of your albums, folders and items. Their names and contents are sealed with encryption keys that are derived from your passcode and kept on your device.</li>
+            <li>Your passcode. It never leaves your device, is never sent to us and is never synced, not even to your own iCloud.</li>
+            <li>Break-in photos taken with the front camera after a wrong passcode, and the contents of the decoy vault.</li>
+            <li>Your settings, recently opened items, search and Trash.</li>
+          </ul>
+          <p>Features such as document scanning and reading text from cards and passports run entirely on your device.</p>
+          <div class="note">
+            <strong>We can’t see your vault</strong>
+            We have no copy of your content and no way to open it. That also means we can’t recover it for you, so keep your passcode and recovery email up to date.
+          </div>
+        </section>
+
+        <section id="leaves">
+          <h2 class="sec">What leaves your device</h2>
+          <p>Only the following information is ever sent off your device, and only for the purpose described:</p>
+          <dl>
+            <div><dt>Recovery email</dt><dd>If you add a recovery email, SafeBox sends that address and a one-time six-digit code to our email service, which emails the code to you. This happens only when you confirm the address or reset a forgotten passcode. Your passcode and vault content are never included. The email is sent from our Gmail account, so Google processes it and a copy of the sent message remains in that mailbox. To prevent abuse, the service keeps a counter tied to a one-way hash of your address for one hour, and stores nothing else.</dd></div>
+            <div><dt>Purchases</dt><dd>SafeBox Plus is bought through Apple. To check whether you have SafeBox Plus, SafeBox uses RevenueCat with a random, anonymous ID created by the app. RevenueCat receives your purchase and receipt details from Apple, along with basic technical information such as app version, device model and country. We never link this ID to your name, email or any other identifier.</dd></div>
+            <div><dt>Usage statistics (you can turn this off)</dt><dd>To learn which parts of SafeBox are used and where people get stuck, the app sends anonymous usage events to Google Analytics for Firebase: which screen was opened, which button was tapped, and whether an action such as an import or a purchase finished. Events contain only fixed words and counts, for example “3 photos imported”. They never contain your files, names, notes, card details, searches, email address or passcode. Google receives them with a random installation ID created by the app, and basic technical information such as app version, device model, system version, language and country. We don’t set a user ID, we don’t collect the advertising identifier, and the data isn’t used for advertising. Turn it off at any time in Settings › About › Share usage data.</dd></div>
+            <div><dt>iCloud Sync and backup (optional)</dt><dd>If you turn on iCloud Sync, your content is encrypted on your device and stored in the private iCloud database of your own Apple Account. Only that encrypted data leaves your device. We cannot access it, and Apple cannot read the sealed content. Encrypted backup files go only where you choose to save them.</dd></div>
+            <div><dt>Feedback</dt><dd>If you send feedback from Settings › Send Feedback, your mail app sends us the message, your email address and the app version shown in the subject. We use it only to reply and improve SafeBox.</dd></div>
+          </dl>
+          <p>When you export or share an item, it goes where you send it, for example your Photos library, Files or another app. That is your choice and is not sent to us.</p>
+        </section>
+
+        <section id="permissions">
+          <h2 class="sec">Device permissions</h2>
+          <p>SafeBox asks for these permissions only when you use a feature that needs them. You can change them at any time in the Settings app.</p>
+          <dl>
+            <div><dt>Camera</dt><dd>To take photos and videos, scan documents and cards straight into your vault, and to take break-in photos if you turn that on.</dd></div>
+            <div><dt>Microphone</dt><dd>To record voice memos and the sound of videos you take.</dd></div>
+            <div><dt>Photos</dt><dd>To move photos and videos you choose into SafeBox, remove the originals when you ask, and save exported items back to your library.</dd></div>
+            <div><dt>Face ID or Touch ID</dt><dd>To unlock SafeBox. Apple handles biometric data; SafeBox never receives it.</dd></div>
+          </dl>
+          <p>SafeBox does not ask for your location, contacts or calendars.</p>
+        </section>
+
+        <section id="not-collected">
+          <h2 class="sec">What we don’t do</h2>
+          <ul>
+            <li>We don’t show ads, and never will.</li>
+            <li>We don’t use advertising or crash-reporting SDKs, and we don’t track you across apps or websites.</li>
+            <li>We don’t put your content, names, searches or anything that identifies you in usage statistics.</li>
+            <li>We don’t collect the advertising identifier or the device’s vendor identifier.</li>
+            <li>We don’t sell, rent or share your information for marketing.</li>
+            <li>We don’t run servers that store your content.</li>
+          </ul>
+          <p>If you choose to share crash reports or analytics with app developers in your device settings, Apple may give us anonymous crash reports. These don’t contain your vault content.</p>
+        </section>
+
+        <section id="third-party">
+          <h2 class="sec">Third-party services</h2>
+          <p>SafeBox works with a small number of services, each under its own privacy policy:</p>
+          <ul>
+            <li><a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple</a>: the App Store, payments, iCloud, and Face ID or Touch ID.</li>
+            <li><a href="https://www.revenuecat.com/privacy/" rel="noopener">RevenueCat</a>: anonymous confirmation of SafeBox Plus purchases.</li>
+            <li><a href="https://policies.google.com/privacy" rel="noopener">Google</a>: Gmail and Google Apps Script, used only to send recovery codes, and Google Analytics for Firebase for anonymous usage statistics.</li>
+          </ul>
+          <p>Links in SafeBox, such as to this page, open websites we don’t control. Their own privacy policies apply.</p>
+        </section>
+
+        <section id="retention">
+          <h2 class="sec">Keeping and deleting data</h2>
+          <ul>
+            <li><strong>Your vault</strong> stays until you delete it. Deleting SafeBox from a device deletes everything stored in it on that device.</li>
+            <li><strong>iCloud data</strong> stays in your iCloud until you delete it. Turn off iCloud Sync in Settings and choose to delete your data from iCloud, or remove it in your Apple Account’s iCloud storage settings.</li>
+            <li><strong>Recovery email</strong>: remove or change it in Settings › Recovery. The anti-abuse counter expires after one hour.</li>
+            <li><strong>Feedback emails</strong> are kept only as long as needed to help you. Ask us and we’ll delete them.</li>
+            <li><strong>Purchase records</strong> are kept by Apple and RevenueCat as required for billing and tax purposes.</li>
+          </ul>
+        </section>
+
+        <section id="security">
+          <h2 class="sec">Security</h2>
+          <p>SafeBox seals your content with modern encryption, using keys derived from your passcode and protected by your device. Information sent to our email service, RevenueCat, Google Analytics and iCloud travels over encrypted connections.</p>
+          <p>When you open, preview or export a file, SafeBox may create a short-lived temporary copy so the system can show it. These copies are deleted when you close the file, lock SafeBox or open it again. If you updated from an earlier version, files from that version are encrypted in the background after your first unlock.</p>
+          <p>No method of storage or transmission is completely secure, but we design SafeBox so that your content is never in our hands.</p>
+        </section>
+
+        <section id="rights">
+          <h2 class="sec">Your rights</h2>
+          <p>Depending on where you live, laws such as the GDPR, UK GDPR or CCPA give you rights to access, correct, delete or object to the use of your personal information, and to complain to a data protection authority. Because your content stays on your device, you already control it directly in the app.</p>
+          <p>For anything we may hold, such as a feedback email, contact us and we will respond within 30 days. We don’t sell or share personal information as those laws define it.</p>
+        </section>
+
+        <section id="children">
+          <h2 class="sec">Children</h2>
+          <p>SafeBox is not directed at children under 13, and we don’t knowingly collect personal information from them. If you believe a child has sent us personal information, for example in a feedback email, contact us and we will delete it.</p>
+        </section>
+
+        <section id="changes">
+          <h2 class="sec">Changes to this policy</h2>
+          <p>We may update this policy as SafeBox changes. We’ll post the new version on this page and update the date at the top. If a change materially affects how we handle your information, we’ll also let you know in the app.</p>
+        </section>
+
+        <section id="contact">
+          <h2 class="sec">Contact us</h2>
+          <p>Questions about this policy or your information can be sent to Byte Tech Labs by email:</p>
+          <div class="contact">
+            <span class="addr">bytetechlabs@gmail.com</span>
+            <a class="button" href="mailto:bytetechlabs@gmail.com?subject=SafeBox%20Privacy">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+              Email us
+            </a>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Byte Tech Labs · SafeBox</span>
+    <span><a href="#top">Privacy Policy</a> · <a href="https://trysafebox.app/terms/">Terms of Use</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
