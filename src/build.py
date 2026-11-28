@@ -230,4 +230,49 @@ with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: {b}\nAllow: /\n\n")
     f.write("User-agent: *\nAllow: /\n\n")
     f.write(f"Sitemap: {BASE}sitemap.xml\n")
+
+# llms.txt: a plain-text summary for AI assistants, built from the English copy so it stays in sync
+def _lines(items): return "\n".join(f"- {x}" for x in items)
+llms = f"""# SafeBox: Photo & File Vault
+
+> {EN["intro"]}
+
+SafeBox is an app for iPhone, iPad and iPhone Duo, by Byte Tech Labs. App Store: {STORE}
+
+## Features
+
+""" + "\n".join(f"- **{f[1]}**{' (' + f[3] + ')' if f[3] else ''}: {f[2]}" for f in EN["features"]) + f"""
+
+## Privacy
+
+{_lines(EN["privacy"])}
+
+## Free plan
+
+{_lines(EN["free"])}
+
+## SafeBox Plus (optional subscription)
+
+{_lines(EN["plus_list"])}
+
+{EN["plans_note"]}
+
+## FAQ
+
+""" + "\n\n".join(f"### {q}\n{a}" for q, a in EN["faq"]) + f"""
+
+## Pages
+
+- [Home]({BASE}): product page, also in """ + ", ".join(x["name"] for x in LANGS if x is not EN) + f"""
+- [Support]({SUPPORT}): passcode recovery, moving to a new iPhone, purchases, contact
+- [Privacy Policy]({POLICY})
+- [Terms of Use]({TERMS})
+"""
+with open(os.path.join(OUT, "llms.txt"), "w") as f:
+    f.write(llms)
+
+# IndexNow key (Bing, Yandex and others): lets us ping search engines when pages change
+INDEXNOW_KEY = "cec862a78dddba49d3b34c0ddaecde2e"
+with open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w") as f:
+    f.write(INDEXNOW_KEY)
 print("ok")
